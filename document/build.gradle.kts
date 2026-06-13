@@ -22,6 +22,14 @@ android {
             )
         }
     }
+
+    // Only include native libs for architectures that have them
+    // armeabi-v7a does not have libmupdf_java.so, so it will be excluded
+    packaging {
+        jniLibs {
+            // This ensures only architectures with actual .so files are included
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

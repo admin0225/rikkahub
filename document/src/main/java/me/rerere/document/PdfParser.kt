@@ -5,16 +5,20 @@ import java.io.File
 
 object PdfParser {
     fun parserPdf(file: File): String {
-        val document = PDFDocument.openDocument(file.absolutePath).asPDF()
-        val pages = document.countPages()
-        val result = StringBuilder()
-        for (i in 0 until pages) {
-            val page = document.loadPage(i).toStructuredText()
-            result.append("---")
-            result.append("Page ${i + 1}:\n")
-            result.append(page.asText())
-            result.appendLine()
+        return try {
+            val document = PDFDocument.openDocument(file.absolutePath).asPDF()
+            val pages = document.countPages()
+            val result = StringBuilder()
+            for (i in 0 until pages) {
+                val page = document.loadPage(i).toStructuredText()
+                result.append("---")
+                result.append("Page ${i + 1}:\n")
+                result.append(page.asText())
+                result.appendLine()
+            }
+            result.toString()
+        } catch (e: UnsatisfiedLinkError) {
+            "PDF parsing is not supported on this device architecture."
         }
-        return result.toString()
     }
 }
