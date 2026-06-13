@@ -32,7 +32,7 @@ jobs:
           version: 9
 
       - name: Install web-ui dependencies
-        run: cd web-ui && pnpm install --frozen-lockfile
+        run: cd web-ui && pnpm install
 
       - name: Gradle cache
         uses: actions/cache@v4
